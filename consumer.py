@@ -3,6 +3,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 
+logging.getLogger("kafka").setLevel(logging.WARNING)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -32,8 +33,9 @@ def main():
         TOPIC,
         bootstrap_servers=BOOTSTRAP_SERVERS,
         value_deserializer=lambda x: json.loads(x.decode("utf-8")),
-        auto_offset_reset="earliest",  # Ensure it starts from the beginning
-        enable_auto_commit=True
+        auto_offset_reset="earliest",
+        enable_auto_commit=True,
+        group_id='eia-consumer-group'
     )
     
     import threading

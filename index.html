@@ -13,11 +13,11 @@
 <body>
     <div id="root" class="container mx-auto p-4"></div>
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React; // ✅ Added useRef
 
         function App() {
             const [data, setData] = useState([]);
-            let chartInstance = null;
+            const chartRef = useRef(null); // ✅ Replaces let chartInstance
 
             useEffect(() => {
                 const fetchData = async () => {
@@ -38,19 +38,26 @@
             useEffect(() => {
                 if (data.length > 0) {
                     const ctx = document.getElementById("priceChart").getContext("2d");
-                    if (chartInstance) chartInstance.destroy();
-                    chartInstance = new Chart(ctx, {
-                        type: "line",
+
+                    if (chartRef.current) {
+                        chartRef.current.destroy(); // ✅ Fix: clean destroy
+                    }
+
+                    chartRef.current = new Chart(ctx, {
+                        type: "bar",
                         data: {
                             labels: data.map(d => d.period),
                             datasets: [{
                                 label: "Average Price (cents/kWh)",
                                 data: data.map(d => d.price || 0),
+                                backgroundColor: data.map(() => 'rgba(54, 162, 235'), // ✅ Added alpha
                                 borderColor: "rgba(75, 192, 192, 1)",
-                                fill: false
+                                borderWidth: 1
                             }]
                         },
                         options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
                             scales: {
                                 y: { beginAtZero: false }
                             }
@@ -61,8 +68,10 @@
 
             return (
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-3xl font-bold mb-4">EIA Electricity Retail Sales</h1>
-                    <canvas id="priceChart" className="w-full"></canvas>
+                    <h1 className="text-3xl font-bold mb-4">EIA Electricity Retail Sales</h1><br/><br/><br/>
+                    <div className="w-full h-96"> {/* ✅ Set fixed height */}
+                        <canvas id="priceChart" className="w-full h-full"></canvas>
+                    </div>
                 </div>
             );
         }

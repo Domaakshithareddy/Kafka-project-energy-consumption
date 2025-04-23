@@ -4,7 +4,9 @@ from kafka import KafkaProducer
 import time
 import logging
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
+logging.getLogger("kafka").setLevel(logging.WARNING)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -52,7 +54,7 @@ def main():
             producer.send(TOPIC, value=record)
             logger.info(f"Sent record for {period_str}")
             producer.flush()
-        current_period += timedelta(days=31)  # Approximate one month
+        current_period += relativedelta(months=1)  # Approximate one month
         time.sleep(2)  # Wait 2 seconds before next month
 
 if __name__ == "__main__":
