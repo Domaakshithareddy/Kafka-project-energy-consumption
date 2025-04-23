@@ -11,7 +11,6 @@ TOPIC = "eia_electricity_data"
 BOOTSTRAP_SERVERS = ["localhost:9092"]
 PORT = 8000
 
-# In-memory store for all data
 latest_data = []
 
 class DataHandler(BaseHTTPRequestHandler):
