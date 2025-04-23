@@ -25,7 +25,7 @@ def fetch_eia_data(start_period):
         "sort[0][direction]": "desc",
         "start": start_period,
         "end": (datetime.strptime(start_period, "%Y-%m") + timedelta(days=31)).strftime("%Y-%m"),
-        "length": 1  # Fetch one record per request
+        "length": 1 
     }
     try:
         response = requests.get(URL, params=params)
@@ -45,7 +45,7 @@ def main():
     )
     
     current_period = datetime(2020, 1, 1)
-    end_period = datetime(2025, 4, 1)  # Up to current month
+    end_period = datetime(2025, 4, 1)
     
     while current_period < end_period:
         period_str = current_period.strftime("%Y-%m")
@@ -54,8 +54,8 @@ def main():
             producer.send(TOPIC, value=record)
             logger.info(f"Sent record for {period_str}")
             producer.flush()
-        current_period += relativedelta(months=1)  # Approximate one month
-        time.sleep(2)  # Wait 2 seconds before next month
+        current_period += relativedelta(months=1) 
+        time.sleep(2) 
 
 if __name__ == "__main__":
     main()

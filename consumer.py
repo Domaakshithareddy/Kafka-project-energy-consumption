@@ -43,10 +43,10 @@ def main():
     
     for message in consumer:
         record = message.value
-        if record["period"] not in [d["period"] for d in latest_data]:  # Avoid duplicates
+        if record["period"] not in [d["period"] for d in latest_data]: 
             latest_data.append(record)
-            latest_data.sort(key=lambda x: x["period"])  # Sort by period
-            latest_data = latest_data[-100:]  # Keep last 100 records
+            latest_data.sort(key=lambda x: x["period"])  
+            latest_data = latest_data[-100:]  
             logger.info(f"Received record: {record['period']}")
 
 if __name__ == "__main__":
