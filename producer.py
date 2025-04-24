@@ -24,7 +24,7 @@ def fetch_eia_data(start_period):
         "sort[0][column]": "period",
         "sort[0][direction]": "desc",
         "start": start_period,
-        "end": (datetime.strptime(start_period, "%Y-%m") + timedelta(days=31)).strftime("%Y-%m"),
+        "end": (datetime.strptime(start_period, "%Y-%m") + relativedelta(months=1)).strftime("%Y-%m"),
         "length": 1 
     }
     try:
@@ -44,8 +44,8 @@ def main():
         value_serializer=lambda v: json.dumps(v).encode("utf-8")
     )
     
-    current_period = datetime(2020, 1, 1)
-    end_period = datetime(2025, 4, 1)
+    current_period = datetime(2019, 12, 1)
+    end_period = datetime(2025, 1, 1)
     
     while current_period < end_period:
         period_str = current_period.strftime("%Y-%m")

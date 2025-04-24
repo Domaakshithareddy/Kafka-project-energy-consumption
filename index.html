@@ -13,12 +13,13 @@
 <body>
     <div id="root" class="container mx-auto p-4"></div>
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React; 
-
+        const { useState, useEffect, useRef } = React;
+    
         function App() {
             const [data, setData] = useState([]);
-            const chartRef = useRef(null); 
-
+            const [showPrice, setShowPrice] = useState(true);  
+            const chartRef = useRef(null);
+    
             useEffect(() => {
                 const fetchData = async () => {
                     try {
@@ -29,28 +30,31 @@
                         console.error("Error fetching data:", error);
                     }
                 };
-
+    
                 fetchData();
                 const interval = setInterval(fetchData, 2000);
                 return () => clearInterval(interval);
             }, []);
-
+    
             useEffect(() => {
                 if (data.length > 0) {
                     const ctx = document.getElementById("priceChart").getContext("2d");
-
+    
                     if (chartRef.current) {
-                        chartRef.current.destroy(); 
+                        chartRef.current.destroy();
                     }
-
+    
+                    const label = showPrice ? "Average Price (cents/kWh)" : "Retail Sales (MWh)";
+                    const values = showPrice ? data.map(d => d.price || 0) : data.map(d => d.sales || 0);
+    
                     chartRef.current = new Chart(ctx, {
                         type: "bar",
                         data: {
                             labels: data.map(d => d.period),
                             datasets: [{
-                                label: "Average Price (cents/kWh)",
-                                data: data.map(d => d.price || 0),
-                                backgroundColor: data.map(() => 'rgba(54, 162, 235'), 
+                                label: label,
+                                data: values,
+                                backgroundColor: data.map(() => 'rgba(54, 162, 235, 0.8)'),
                                 borderColor: "rgba(75, 192, 192, 1)",
                                 borderWidth: 1
                             }]
@@ -64,19 +68,32 @@
                         }
                     });
                 }
-            }, [data]);
-
+            }, [data, showPrice]);
+    
             return (
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-3xl font-bold mb-4">EIA Electricity Retail Sales</h1><br/><br/><br/>
-                    <div className="w-full h-96"> 
+                    <h1 className="text-3xl font-bold mb-4">EIA Electricity Retail Sales</h1><br/>
+    
+                    <div className="mb-4">
+                        <label className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                checked={showPrice}
+                                onChange={() => setShowPrice(prev => !prev)}
+                                className="toggle toggle-sm"
+                            />
+                            <span className="text-lg">{showPrice ? "Showing Price" : "Showing Sales"}</span>
+                        </label>
+                    </div>
+    
+                    <div className="w-full h-96">
                         <canvas id="priceChart" className="w-full h-full"></canvas>
                     </div>
                 </div>
             );
         }
-
+    
         ReactDOM.render(<App />, document.getElementById("root"));
-    </script>
+    </script>    
 </body>
 </html>
