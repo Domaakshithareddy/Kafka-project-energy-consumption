@@ -11,7 +11,6 @@ logging.getLogger("kafka").setLevel(logging.WARNING)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-API_KEY = "Ep4uXcVkAyKXSG9vLCGlSvcgkvXffgxYEAHeJYgM"
 URL = "https://api.eia.gov/v2/electricity/retail-sales/data/"
 TOPIC = "eia_electricity_data"
 BOOTSTRAP_SERVERS = ["localhost:9092"]
