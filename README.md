@@ -1,6 +1,3 @@
-Here's a structured `README.md` file with clear **execution steps** for the GitHub repository [Kafka-project-energy-consumption](https://github.com/Domaakshithareddy/Kafka-project-energy-consumption):
-
----
 
 # Kafka Project: Energy Consumption Streaming Pipeline
 
@@ -123,12 +120,4 @@ This script reads messages from the Kafka topic and processes or prints them to 
 * Modify `data_generator.py` for different data intervals or formats.
 * Make sure Kafka is configured on default ports (or update producer/consumer accordingly).
 
----
 
-## 📜 License
-
-This project is for educational purposes.
-
----
-
-Would you like me to help you modify this for Docker-based setup or add visualization using Kafka Streams + Spark or D3.js?
