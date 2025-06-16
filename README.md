@@ -18,11 +18,10 @@ This project demonstrates real-time data streaming for energy consumption using 
 ## Project Structure
 
 ```
-.
-├── data_generator.py          # Simulates energy consumption data
-├── kafka_producer.py         # Sends data to Kafka topic
-├── kafka_consumer.py         # Reads and processes data from Kafka
-├── requirements.txt          # Required Python packages
+├── producer.py         # Sends data to Kafka topic
+├── consumer.py         # Reads and processes data from Kafka
+├── requirements.txt    # Required Python packages
+├── imdex.html          # Shows histogram of sales and prices
 ```
 
 ---
