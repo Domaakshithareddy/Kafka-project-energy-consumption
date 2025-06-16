@@ -64,12 +64,6 @@ kafka-server-start.sh config/server.properties
 kafka-topics.sh --create --topic energy-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
-(Optional) To verify:
-
-```bash
-kafka-topics.sh --list --bootstrap-server localhost:9092
-```
-
 ---
 
 ### 3. Generate Synthetic Energy Consumption Data
@@ -107,17 +101,3 @@ python kafka_consumer.py
 This script reads messages from the Kafka topic and processes or prints them to the console.
 
 ---
-
-## ✅ Expected Output
-
-* Continuous stream of energy consumption records in the console via the consumer.
-* Demonstrates real-time ingestion and processing using Kafka.
-
----
-
-## 📌 Notes
-
-* Modify `data_generator.py` for different data intervals or formats.
-* Make sure Kafka is configured on default ports (or update producer/consumer accordingly).
-
-
