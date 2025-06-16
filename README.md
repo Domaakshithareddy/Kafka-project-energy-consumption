@@ -5,7 +5,7 @@ This project demonstrates real-time data streaming for energy consumption using 
 
 ---
 
-## 🧰 Technologies Used
+## Technologies Used
 
 * Python
 * Apache Kafka
@@ -15,7 +15,7 @@ This project demonstrates real-time data streaming for energy consumption using 
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
@@ -27,7 +27,7 @@ This project demonstrates real-time data streaming for energy consumption using 
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
 Ensure the following are installed on your system:
 
@@ -38,7 +38,7 @@ Ensure the following are installed on your system:
 
 ---
 
-## 🚀 Execution Steps
+## Execution Steps
 
 ### 1. Start Zookeeper and Kafka Server
 
@@ -66,38 +66,32 @@ kafka-topics.sh --create --topic energy-data --bootstrap-server localhost:9092 -
 
 ---
 
-### 3. Generate Synthetic Energy Consumption Data
-
-In a separate terminal, run the data generator:
-
-```bash
-python data_generator.py
-```
-
-This will continuously generate dummy energy consumption records and write them to a file or stream.
-
----
-
-### 4. Start Kafka Producer
+### 3. Start Kafka Producer
 
 Send the generated data to Kafka topic:
 
 ```bash
-python kafka_producer.py
+python producer.py
 ```
 
 This script reads data from the file and pushes it to the `energy-data` topic.
 
 ---
 
-### 5. Start Kafka Consumer
+### 4. Start Kafka Consumer
 
 Consume the streamed data:
 
 ```bash
-python kafka_consumer.py
+python consumer.py
 ```
 
 This script reads messages from the Kafka topic and processes or prints them to the console.
+
+---
+
+### 5. Open index.html
+
+This shows the histogram of sales and prices in the web page.
 
 ---
